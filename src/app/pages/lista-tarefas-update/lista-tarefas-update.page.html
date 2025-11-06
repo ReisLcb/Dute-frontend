@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+<ion-content>
+          <ion-card id="card-criar-lista">
+            <ion-card-header>
+              <ion-card-title style="text-align: center;"><b>Alterar lista de tarefas</b></ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="fbListaTarefas">
+                <ion-input fill="outline" placeholder="Dê um nome à sua lista" class="criar-lista" formControlName="titulo" class="cardList"></ion-input><br>
+                <ion-textarea fill="outline" placeholder="Nos dê uma descrição para essa lista" class="criar-lista" formControlName="descricao" class="cardList"></ion-textarea>
+                <ion-select label="Visibilidade" label-placement="floating" formControlName="visibilidade">
+                  <ion-select-option value="Pública">Pública</ion-select-option>
+                  <ion-select-option value="Privada">Privada</ion-select-option>
+                </ion-select>
+              </form>
+            </ion-card-content>
+          </ion-card>
+          <b style="margin-left: 33%;">Conjunto de tarefas</b>
+          <ion-list>
+            @for(tarefa of tarefas; track tarefa.codigo && $index){
+              <ion-item>
+                <ion-input type="text" [(ngModel)]="tarefa.nome"></ion-input>
+                <ion-select placeholder="Prioridade" label="" style="float: right;" (ionChange)="atribuirPrioridade($index, $event)" >
+                  <ion-select-option value="Máxima">Máxima</ion-select-option>
+                  <ion-select-option value="Alta">Alta</ion-select-option>
+                  <ion-select-option value="Média">Média</ion-select-option>
+                  <ion-select-option value="Baixa">Baixa</ion-select-option>
+              </ion-select>
+              </ion-item>
+            }
+          </ion-list>
+              <ion-button (click)="alterarListaTarefas()"  [disabled]="fbListaTarefas.invalid" style="width: 90%; margin: 5%; color: rgb(211, 165, 255);" fill="outline"><b>Salvar alterações</b></ion-button>
+              <ion-button routerLink="/main" color="danger" fill="outline" style="width: 90%; margin: 5%;"><b>Cancelar</b></ion-button>
+      </ion-content>
+</ion-content>

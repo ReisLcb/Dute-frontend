@@ -1,0 +1,191 @@
+<ion-tabs>
+  <ion-tab tab="home">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Início</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        @for(lista of listasTarefas; track lista.id){
+          <ion-card>
+            <ion-card-header>
+              <ion-button style="position: absolute; margin-left: 80%; margin-bottom: 20px;" *ngIf="lista.usuario_id == usuarioLogado.id" fill="clear" routerLink="/lista-tarefas-update"(click)="guardarIdLista(lista.id)"><ion-icon style="color: #a970ff;;" name="pencil-sharp"></ion-icon></ion-button>
+              <ion-button style="position: absolute; margin-left: 70%; margin-bottom: 20px;" *ngIf="lista.usuario_id == usuarioLogado.id" fill="clear" color="danger" (click)="alertExcluirLista(lista.id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <ion-card-subtitle><b>Tempo: {{ lista.tempo_decorrido }}</b></ion-card-subtitle>
+              <ion-card-title><b>{{ lista.titulo }}</b></ion-card-title>
+              <ion-card-subtitle><b>{{ "usuario" }} • {{ tratarData(lista.data_criacao) }}</b></ion-card-subtitle>
+            </ion-card-header>
+            <div id="modal-tarefas" (click)="setOpen(true, lista.id)">
+            <ion-card-content id="descricao-lista">{{ lista.descricao }}<br><br>
+               <ion-card-subtitle style="text-align: center;" id="subt-tarefas"><b>Tarefas realizadas</b></ion-card-subtitle>
+            
+
+                  @for(tarefa of lista.tarefas; track tarefa.codigo){
+                    <ion-card-subtitle>{{ tarefa.nome }}</ion-card-subtitle>
+                  }
+                </ion-card-content>
+                    <ion-modal [isOpen]="isModalOpen">
+                        <ng-template>
+                          <ion-header>
+                            <ion-toolbar>
+                              <ion-title>Tarefas realizadas</ion-title>
+                              <ion-buttons slot="end">
+                                <ion-button (click)="setOpen(false, -1)">Fechar</ion-button>
+                              </ion-buttons>
+                            </ion-toolbar>
+                          </ion-header>
+                          <div style="background-color: black;">
+                            <ion-item style="color: rgb(131, 131, 131);"><b>Nome</b> <p slot="end"><b>Prioridade</b></p></ion-item>
+
+                            @for(tarefa of tarefasToogle; track tarefa.codigo){
+                              @if(tarefa.status != "Cancelada") {
+                                <ion-item>{{ tarefa.nome }}<p slot="end">{{ tarefa.prioridade }}</p></ion-item>
+                              } @else {
+                                <ion-item>{{ tarefa.nome + " " }} <b style="color: red;"> (Cancelada)</b> <p slot="end">{{ tarefa.prioridade }}</p></ion-item>
+                              }
+                            }
+                          </div>
+                        </ng-template>
+                      </ion-modal>
+                      </div>
+            
+          </ion-card>
+        }
+      </ion-content>
+  </ion-tab>
+  <ion-tab tab="radio">
+      <ion-content>
+          <ion-card id="card-criar-lista">
+            <ion-card-header>
+              <ion-card-title style="text-align: center;"><b>Nova lista de tarefas</b></ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="fbListaTarefas">
+                <ion-input fill="outline"placeholder="Dê um nome à sua lista" class="criar-lista" formControlName="titulo"></ion-input><br>
+                <ion-textarea fill="outline" placeholder="Nos dê uma descrição para essa lista" class="criar-lista" formControlName="descricao"></ion-textarea>
+                <ion-select label="Visibilidade" label-placement="floating" formControlName="visibilidade">
+                  <ion-select-option value="Pública">Pública</ion-select-option>
+                  <ion-select-option value="Privada">Privada</ion-select-option>
+                </ion-select>
+              </form>
+            </ion-card-content>
+          </ion-card>
+          <b style="margin-left: 33%; position: absolute;">Conjunto de tarefas</b>
+          <ion-button fill="outline" style="color: #a970ff; width: 98%;" id="present-alert">Adicionar tarefa</ion-button>
+          <ion-alert
+            trigger="present-alert"
+            header="Informações da tarefa"
+            [buttons]="alertButtonsCriarTarefa"
+            [inputs]="alertInputs"
+          ></ion-alert>
+          @for(tarefa of tarefas; track $index){
+            <ion-item>
+              {{ tarefa.nome }}
+              <ion-button fill="clear" color="danger" slot="end" (click)="removerTarefa($index)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <ion-select placeholder="Prioridade" label="" style="float: right;" (ionChange)="atribuirPrioridade($index, $event)" >
+                <ion-select-option value="Máxima">Máxima</ion-select-option>
+                <ion-select-option value="Alta">Alta</ion-select-option>
+                <ion-select-option value="Média">Média</ion-select-option>
+                <ion-select-option value="Baixa">Baixa</ion-select-option>
+              </ion-select>
+            </ion-item>
+          }
+          <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+              <ion-fab-button (click)="criarListaTarefas()" [disabled]="fbListaTarefas.invalid || tarefas.length < 1">
+                <ion-icon name="play"></ion-icon>
+              </ion-fab-button>
+          </ion-fab>
+        </ion-content>
+  </ion-tab>
+  <ion-tab tab="library">
+      <ion-content>
+        <ion-card id="card-usuario">
+            <ion-card-header>
+              <ion-img [src]="imagemSrc || null" *ngIf="usuarioLogado.fotoPath != null" style="width: 100px; margin: auto; border-radius: 10%;">
+              </ion-img>
+              <ion-button id="open-modal" fill="clear"><ion-icon name="add-circle"></ion-icon></ion-button>
+              <ion-img src="../../../assets/icon/images.jpeg" *ngIf="usuarioLogado.fotoPath == null" style="width: 100px; margin: auto; border-radius: 10%;"></ion-img>
+              <ion-card-subtitle></ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-card-title><b>{{ usuarioLogado.nome_de_usuario }}</b></ion-card-title>
+              <ion-card-subtitle><b>{{ usuarioLogado.email }}</b></ion-card-subtitle>
+              <ion-button fill="outline" routerLink="/outras-informacoes"><ion-icon name="create-outline"></ion-icon>Editar conta</ion-button>
+              <ion-button fill="outline" color="danger" id="botao-excluir"><ion-icon name="trash-outline"></ion-icon>Excluir conta</ion-button>
+            </ion-card-content>
+          </ion-card>
+          
+          <ion-alert trigger="botao-excluir" header="Deseja prosseguir?" message="Esta ação é irreversível" [buttons]="alertButtons" (didDismiss)="setResult($event)"></ion-alert>
+          <ion-card-title style="text-align: center;"><b>Suas listas de tarefas</b></ion-card-title>
+          <ion-searchbar show-clear-button="focus" placeholder="Pesquisar" [debounce]="1" (ionInput)="pesquisarListaUsuarioTitulo($event)"></ion-searchbar>
+          @for(lista of listasTarefasUsuario; track lista.id){
+            <ion-card>
+              <ion-card-header>
+                <ion-button style="position: absolute; margin-left: 80%; margin-bottom: 20px;" *ngIf="lista.usuario_id == usuarioLogado.id" routerLink="/lista-tarefas-update" fill="clear" (click)="guardarIdLista(lista.id)"><ion-icon style="color: #a970ff;;" name="pencil-sharp"></ion-icon></ion-button>
+                <ion-button style="position: absolute; margin-left: 70%; margin-bottom: 20px;" *ngIf="lista.usuario_id == usuarioLogado.id" fill="clear" color="danger" id="alert-excluir-lista" (click)="alertExcluirLista(lista.id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                <ion-card-subtitle id="data-lista"><b>Última alteração: {{ tratarData(lista.data_ultima_alteracao) }}</b></ion-card-subtitle>
+                <ion-card-subtitle><b>Tempo: {{ lista.tempo_decorrido }}</b></ion-card-subtitle>
+                <ion-card-title><b>{{ lista.titulo }}         <ion-icon *ngIf="lista.visibilidade == 'Privada'" name="lock-closed-outline"></ion-icon></b></ion-card-title>
+                <ion-card-subtitle><b>{{ usuarioLogado.nome_de_usuario }} • {{ tratarData(lista.data_criacao) }}</b></ion-card-subtitle>
+              </ion-card-header>
+              <div (click)="setOpen(true, lista.id)"> 
+                <ion-card-content id="descricao-lista">{{ lista.descricao }} <br><br>
+                  <ion-card-subtitle style="text-align: center;" id="subt-tarefas"><b>Tarefas realizadas</b></ion-card-subtitle>
+
+                  @for(tarefa of lista.tarefas; track tarefa.codigo){
+                    <ion-card-subtitle>{{ tarefa.nome }}</ion-card-subtitle>
+                  }
+                </ion-card-content>
+              </div>
+            </ion-card>
+          }
+          <ion-modal [isOpen]="isModalOpen">
+                        <ng-template>
+                          <ion-header>
+                            <ion-toolbar>
+                              <ion-title>Tarefas realizadas</ion-title>
+                              <ion-buttons slot="end">
+                                <ion-button (click)="setOpen(false, -1)">Fechar</ion-button>
+                              </ion-buttons>
+                            </ion-toolbar>
+                          </ion-header>
+                          <div style="background-color: black;">
+                            <ion-item style="color: rgb(131, 131, 131);"><b>Nome</b> <p slot="end"><b>Prioridade</b></p></ion-item>
+
+                            @for(tarefa of tarefasToogle; track tarefa.codigo){
+                              <ion-item>{{ tarefa.nome }}<p slot="end">{{ tarefa.prioridade }}</p></ion-item>
+                            }
+                          </div>
+                        </ng-template>
+                      </ion-modal>
+        </ion-content>
+      </ion-tab>
+
+  <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+        <ion-list>
+          <ion-item routerLink="/alterar-foto">
+              <ion-icon name="create-outline" ></ion-icon> Editar foto de perfil
+          </ion-item>
+          <ion-item color="danger" (click)="excluirFotoPerfil()">
+              <ion-icon name="trash-outline"></ion-icon> Excluir foto de perfil
+          </ion-item>
+        </ion-list>
+    </ng-template>
+  </ion-modal>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" (click)="obterListaTarefasPublicas()">
+      <ion-icon name="home-outline"></ion-icon>
+      Início
+    </ion-tab-button>
+    <ion-tab-button tab="radio" (click)="limparFormulario()">
+      <ion-icon name="add-outline"></ion-icon>
+      Criar
+    </ion-tab-button>
+    <ion-tab-button tab="library" (click)="carregarDadosUsuario()">
+      <ion-icon name="person-circle"></ion-icon>
+      Conta
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

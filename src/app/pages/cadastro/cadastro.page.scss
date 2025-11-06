@@ -1,0 +1,27 @@
+ion-button{
+  --color: white;
+  --background: rgba(174, 0, 255,0);
+  --border-color: blueviolet;
+  --border-radius: 50px;
+  width: 90%;
+  margin-left:20px;
+}
+
+ion-content{
+  overflow-y: hidden;
+}
+
+#cadastroForm{
+    margin-top: 80%;
+}
+
+ion-button#voltar{
+  --color: rgb(211, 146, 255);
+  --background: rgba(174, 0, 255,0);
+  --border-color: blueviolet;
+  --border-radius: 50px;
+}
+
+input[type='file']{
+  display: none;
+}

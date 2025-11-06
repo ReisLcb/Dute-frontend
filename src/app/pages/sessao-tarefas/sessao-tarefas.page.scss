@@ -1,0 +1,42 @@
+ion-button{
+  --color: rgb(202, 110, 255);
+  --background: rgba(174, 0, 255,0);
+  --border-color: blueviolet;
+  margin-left: auto;
+}
+
+ion-card-subtitle#titulo-tarefa{
+    color: white;
+    font-size: 17px;
+    margin: 10px;
+}
+
+.card-tarefa {
+  display: flex;
+  align-items: center; /* verticalmente centralizado */
+  justify-content: space-between; /* espaça nome e botão */
+  padding: 10px; /* ajuste conforme preferir */
+}
+
+.textos {
+  display: flex;
+  flex-direction: column; /* empilha verticalmente */
+}
+
+ion-card-subtitle#titulo-tarefa{
+  font-weight: bold;
+  margin-bottom: 4px; /* espaço entre título e status */
+}
+
+ion-card-subtitle#status {
+  color: gray;
+  font-size: 0.9em;
+  margin: 10px;
+  margin-top: -20px;
+}
+
+ion-fab-button::part(native) {
+  background-color: #c300ff;
+  padding-left: 10px;
+  box-shadow: -5px 5px 2px 0px rgba(255, 0, 255, 0.3), 0px 1px 3px 1px rgba(225, 0, 255, 0.15);
+}

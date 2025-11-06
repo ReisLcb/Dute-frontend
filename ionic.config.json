@@ -1,0 +1,8 @@
+{
+  "name": "gerenciador-tarefas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone",
+  "mode": "ios"
+}

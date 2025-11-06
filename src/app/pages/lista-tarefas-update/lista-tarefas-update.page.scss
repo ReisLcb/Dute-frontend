@@ -1,0 +1,17 @@
+
+ion-button{
+  --color: rgb(211, 146, 255);
+  --background: rgba(174, 0, 255,0);
+  --border-color: blueviolet;
+  --border-radius: 50px;
+}
+
+form{
+        color: white;
+}
+
+ion-input.cardLista, textarea{
+  --background: rgb(0, 0, 0);
+  --border-radius: 10px;
+  --color: white;
+}

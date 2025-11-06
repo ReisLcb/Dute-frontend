@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+  <div style="height: 100%; display: flex; align-items: center; width: 100%; justify-content: center;">
+  <ion-card>
+  <ion-card-header>
+    <ion-card-title>Já é de casa?</ion-card-title>
+    <ion-card-subtitle>Faça login!</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+     <form [formGroup]="usuarioForm">
+    <ion-list>
+      <ion-item>
+        <ion-input placeholder="Nome de usuário" fill="solid" formControlName="nome_de_usuario" color="tertiary"></ion-input>
+      </ion-item>
+
+    <ion-item>
+      <ion-input  type="password" placeholder="Senha"  fill="solid" formControlName="senha" color="tertiary"></ion-input>
+    </ion-item>
+    </ion-list>
+</form>
+  </ion-card-content>
+<ion-button class="botao" fill="outline" (click)="login()" [disabled]="!usuarioForm.valid">
+    Entrar
+</ion-button>
+<br>Ou<br>
+<ion-button (click)="irPaginaCadastro()" class="botao" fill="outline" class="button-royal">
+    Cadastrar-se
+</ion-button>
+<br>
+<br>
+</ion-card>
+</div>
+
+
+</ion-content>

@@ -1,0 +1,112 @@
+:root {
+	--ion-color-roxo: #9d03fc;
+	--ion-color-roxo-rgb: 157,3,252;
+	--ion-color-roxo-contrast: #ffffff;
+	--ion-color-roxo-contrast-rgb: 255,255,255;
+	--ion-color-roxo-shade: #8a03de;
+	--ion-color-roxo-tint: #a71cfc;
+}
+
+.ion-color-roxo {
+	--ion-color-base: var(--ion-color-roxo);
+	--ion-color-base-rgb: var(--ion-color-roxo-rgb);
+	--ion-color-contrast: var(--ion-color-roxo-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-roxo-contrast-rgb);
+	--ion-color-shade: var(--ion-color-roxo-shade);
+	--ion-color-tint: var(--ion-color-roxo-tint);
+}
+
+ion-input.criar-lista {
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --min-height: 12px; /* Pode até testar 28px ou menos */
+  font-size: 14px;
+  height: 10px; /* Altura total da caixa */
+  background-color: rgb(22, 22, 22);
+  --border-color: #8a03de;
+  color: white;
+}
+
+ion-card#card-criar-lista{
+	background-color: rgb(24, 24, 24);
+  --border-color: #8a03de;
+  margin-top: 30px;
+}
+
+ion-select{
+	color:white;
+}
+
+ion-button{
+  --color: white;
+  --background: rgba(174, 0, 255,0);
+  --border-color: blueviolet;
+  --border-radius: 50px;
+}
+
+ion-card-title{
+	font-size: 17px;
+}
+
+ion-card-subtitle{
+	font-size: 12px;
+}
+
+ion-card-content{
+	color: rgb(190, 190, 190);
+}
+
+ion-card-subtitle#subt-tarefas{
+	font-size: 16px;
+	color: rgb(190, 190, 190);
+}
+
+ion-card-subtitle#data-lista{
+	font-size: 10px;
+	color: rgb(190, 190, 190);
+}
+
+ion-card-content#descricao-lista{
+	font-size: 11px;
+	color: rgb(190, 190, 190);
+}
+
+ion-card#card-usuario{
+	text-align: center;
+}
+
+ion-card#card-usuario ion-button{
+	width: 60%;
+	color: hsl(277, 100%, 89%);
+}
+
+.block {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-modal {
+  --height: auto;
+}
+
+#open-modal{
+	--color: white;
+	position: absolute;
+	left: 120px;
+	top: 50px;
+}
+
+ion-fab-button::part(native) {
+  background-color: #c300ff;
+  box-shadow: -5px 5px 2px 0px rgba(255, 0, 255, 0.3), 0px 1px 3px 1px rgba(225, 0, 255, 0.15);
+}
+
+ion-button#present-alert{
+	width: 100%;
+	margin-top: 30px;
+}

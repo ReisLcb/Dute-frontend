@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(!carregando){
+      <ion-card>
+        <br>
+        <ion-card-title style="text-align: center;">{{ lista_tarefas.titulo }}</ion-card-title>
+        <br>
+        <ion-card-subtitle style="text-align: center;">Tempo decorrido:</ion-card-subtitle>
+        <ion-card-title id="tempo-decorrido" style="text-align: center; font-size: 100px; color: rgb(213, 168, 255);" *ngIf="tempoDecorrido !== undefined">
+            {{ tempoDecorrido | date:'mm:ss':'UTC' }}
+        </ion-card-title >
+        <div style="margin-left: 35%;">
+          <ion-button fill="outline" color="medium" size="medium" (click)="pausarTimer()" [disabled]="timerPausado">
+            <ion-icon name="pause-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="outline" size="medum" (click)="retomarTimer()" [disabled]="!timerPausado">
+            <ion-icon name="play-outline"></ion-icon>
+          </ion-button>
+        </div>
+        <br>
+      </ion-card>
+      <ion-list>
+        @for(tarefa of tarefas; track $index){
+          
+          <ion-card class="card-tarefa"><div class="textos"><ion-card-subtitle id="titulo-tarefa">{{ tarefa.nome }} ({{ tarefa.prioridade }})</ion-card-subtitle><br><br>
+            <ion-card-subtitle id="status">{{ tarefa.status }}</ion-card-subtitle></div>
+            <br>
+            <br>
+            <div>
+              <ion-button fill="outline" (click)="concluirTarefa($index)"><ion-icon name="checkmark-outline" ></ion-icon></ion-button>
+              <ion-button fill="outline"  (click)="cancelarTarefa($index)"><ion-icon name="close-outline" ></ion-icon></ion-button>
+              <ion-button fill="outline" (click)="editarTarefa($index)" id="editar-tarefa-trigger"><ion-icon name="create-outline" ></ion-icon></ion-button>
+              <ion-button fill="outline" color="danger" (click)="excluirTarefa($index, (tarefa.codigo))"><ion-icon name="trash-outline" ></ion-icon></ion-button>
+            </div>
+          </ion-card>
+        }
+    </ion-list>
+  }
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-item>
+    <ion-fab-button (click)="finalizarSessao()">
+    <ion-icon name="checkmark-outline"></ion-icon>
+  </ion-fab-button>
+
+  <ion-fab-button id="cancelar-lista-trigger">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+  </ion-item>
+</ion-fab>
+
+<ion-alert
+  trigger="cancelar-lista-trigger"
+  header="Tem certeza?"
+  message="Se cancelar esta lista, precisará criar outra novamente."
+  [buttons]="alertButtonsCancelarLista"
+></ion-alert>
+
+
+</ion-content>

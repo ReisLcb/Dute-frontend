@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button routerLink="/main" fill="clear">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Alterar Informações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+      <form [formGroup]="usuarioForm">
+          <ion-list>
+            <ion-item>
+              <ion-input label="Nome" label-placement="stacked" fill="outline" formControlName="nome" color="tertiary"></ion-input>
+            </ion-item>
+          <br>
+            <ion-item>
+              <ion-input label="Nome de usuário" label-placement="stacked" fill="outline" formControlName="nome_de_usuario"></ion-input>
+            </ion-item>
+          <br>
+          </ion-list>
+
+          <ion-item>
+            <ion-input label="E-mail" label-placement="stacked" fill="outline" errorText="E-mail inválido" formControlName="email" color="tertiary"></ion-input>
+          </ion-item>
+
+          
+          <!-- <ion-item> -->
+            <!-- <ion-input type="file" label-placement="floating" fill="solid" (change)="onFileSelected($event)"></ion-input> Adicionar arquivos do frontend para o backend -->
+          <!-- </ion-item> -->
+          
+          <ion-list>
+          <ion-item>
+            <ion-button fill="outline" style="margin: auto; width: 90%;" [disabled]="usuarioForm.invalid" (click)="alterarInfoUsuario()">Confirmar alterações</ion-button>
+          </ion-item>
+          <ion-item>
+          <ion-button fill="outline" style="margin: auto; width: 90%;" color="danger" routerLink="/main">Cancelar</ion-button>
+            </ion-item>
+        </ion-list>
+        
+          <ion-item routerLink="/alterar-senha">
+            Alterar sua senha
+          </ion-item>
+          
+          <ion-item id="deslogar" (click)="alertDeslogar()" style="color: rgb(255, 79, 79);">
+            <ion-icon name="exit-outline"></ion-icon>
+            Sair da conta
+          </ion-item>
+      </form>
+</ion-content>

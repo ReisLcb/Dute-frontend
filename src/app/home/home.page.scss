@@ -1,0 +1,60 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+#container ion-card {
+  border-color: rgb(212, 0, 255);
+}
+
+ion-card{
+  text-align: center;
+  align-items: center;
+  border-color: rgb(212, 0, 255);
+}
+
+ion-button{
+  width: 60%;
+}
+
+ion-input{
+  text-align: center;
+}
+
+ion-card-title{
+  color: rgb(243, 181, 255);
+}
+
+ion-card{
+  border-radius: 15px;
+}
+
+ion-button{
+  --color: white;
+  --background: rgba(174, 0, 255,0);
+  --border-color: blueviolet;
+  --border-radius: 50px;
+}

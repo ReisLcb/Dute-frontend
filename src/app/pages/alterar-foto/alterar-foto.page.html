@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>alterarFoto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h5 style="text-align: center;"><b>Vamos adicionar uma foto bem legal</b></h5> 
+        <ion-input type="file" label-placement="floating" label="Adicionar foto" accept="image/png" id="arquivo" (change)="adicionarArquivos($event)">
+
+        </ion-input>
+        <br>
+        <div>
+          <ion-img [src]="imagePreview" style="width: 200px; margin: auto; height: auto;"></ion-img>
+  </div>
+  <br>
+        <ion-button (click)="alterarFoto()" fill="clear">Alterar foto de perfil</ion-button>
+</ion-content>

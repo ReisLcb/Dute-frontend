@@ -1,0 +1,46 @@
+  <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button routerLink="/home" id="voltar" fill="clear">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Já tem conta?
+    </ion-button>
+  </ion-toolbar>
+  </ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="cadastroForm">
+      <form [formGroup]="usuarioForm">
+          <ion-list>
+            <ion-item>
+              <ion-input placeholder="Nome" fill="solid" errorText="Nome inválido" formControlName="nome" color="tertiary"></ion-input>
+            </ion-item>
+          <br>
+            <ion-item>
+              <ion-input placeholder="Nome de usuário" errorText="Nome de usuário inválido" fill="solid" formControlName="nome_de_usuario"></ion-input>
+            </ion-item>
+          <br>
+          </ion-list>
+
+          <ion-item>
+            <ion-input placeholder="E-mail" errorText="E-mail inválido" formControlName="email" color="tertiary"></ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-input placeholder="Senha" [counter]="true" type="password" label-placement="floating" fill="solid" formControlName="senha">
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <label for="arquivo" >Adicionar foto de perfil</label>
+            <ion-input type="file" label-placement="floating" fill="solid" accept="image/*" id="arquivo" (change)="adicionarArquivos($event)"></ion-input>
+          </ion-item>
+      </form>
+<br>
+<br>
+      <ion-button (click)="cadastrar()" fill="outline" [disabled]="!usuarioForm.valid">
+        Cadastrar
+      </ion-button>
+    </div>
+    <br>
+</ion-content>

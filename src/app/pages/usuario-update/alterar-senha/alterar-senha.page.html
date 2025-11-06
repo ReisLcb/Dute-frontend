@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button routerLink="/outras-informacoes" fill="clear">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Alterar senha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+<form [formGroup]="senhaForm">
+          <ion-list>
+            <ion-item>
+              <ion-input label="Senha atual" type="password" label-placement="stacked" fill="outline" formControlName="senhaAtual" color="tertiary">
+                <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+          <br>
+            <ion-item>
+              <ion-input label="Nova senha" type="password" label-placement="stacked" fill="outline" formControlName="novaSenha">
+                <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+          <br>
+          </ion-list>
+          
+          <ion-list>
+          <ion-item>
+            <ion-button fill="outline" style="margin: auto; width: 90%;" [disabled]="senhaForm.invalid" (click)="alterarSenha()">Confirmar alterações</ion-button>
+          </ion-item>
+          <ion-item>
+          <ion-button fill="outline" style="margin: auto; width: 90%;" color="danger" routerLink="/outras-informacoes">Cancelar</ion-button>
+            </ion-item>
+        </ion-list>
+      </form>
+</ion-content>
