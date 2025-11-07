@@ -192,12 +192,12 @@ export class SessaoTarefasPage implements OnInit {
 
   protected concluirTarefa(index:number){
     let tarefa = this.tarefas[index];
-    if(tarefa.status != "Cancelada") tarefa.status = "Concluída"
+    tarefa.status = "Concluída"
   }
 
   protected cancelarTarefa(index:number){
     let tarefa = this.tarefas[index];
-    if(tarefa.status != "Concluída") tarefa.status = "Cancelada"
+    tarefa.status = "Cancelada"
   }
 
   protected excluirTarefa(index:number, tarefa_id:number){
@@ -211,7 +211,7 @@ export class SessaoTarefasPage implements OnInit {
       }
     })
     if(this.tarefas.length < 1) {
-      this.alert("Finalizando lista", "Sua lista deve ter ao menos uma tarefa, cancelando lista...")
+      this.alert("Finalizando lista", "Sua lista deve ter ao menos uma tarefa. Cancelando lista...")
       this.cancelarLista()
     }
   }
