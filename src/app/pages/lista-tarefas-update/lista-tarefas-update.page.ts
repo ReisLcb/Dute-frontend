@@ -28,7 +28,6 @@ export class ListaTarefasUpdatePage implements OnInit {
   private router = inject(Router)
 
   protected tarefas:Tarefa[] = []
-  private idxTarefasParaRemover:number[] = []
 
   async exibirMensagem(msg:string) {
     const toast = await this.toastController.create({
